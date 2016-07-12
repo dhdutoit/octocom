@@ -1,0 +1,223 @@
+#!/bin/bash
+
+USR_CMD=$1
+
+#user feedback messages
+UNRECOGNISED_COMMAND_OPTION="usage: octocom does not recognise the option you provided for this command.."
+UNRECOGNISED_OC_COMMAND="usage: octocom needs you to give it a command to run.."
+UNKNOWN_OC_COMMAND="usage: octocom does not understand the command you gave it to run.."
+NO_GIT_FOUND="setup: octocom could not find GIT anywhere on this host, please check this and try again?"
+CONFIG_QUESTION_EMAIL_ADDRESS="config: oops! octocom needs the email address you want to use in your commits?"
+CONFIG_UNKNOWN_EMAIL_ADDRESS="config: don't be like that, you need to give octocom an email address to use in your commits.."
+CONFIG_QUESTION_REAL_NAME="config: oops! octocom needs the name you want to use in your commits? Like 'John Snow'."
+CONFIG_UNKNOWN_REAL_NAME="config: don't be like that, you need to give octocom a name to use in your commits.."
+USAGE_NO_OPTIONS_REQUIRED="usage: this command does not use options at the moment"
+USAGE_EXPECTS_OPTIONS="usage: the command expects at least one option to be provided."
+
+function checkDefaultConfigSettings {
+
+	#inform the user if git is not installed on the host
+	#NOTE: perhaps display links to install/download git in feedback(?)
+	git --version >/dev/null
+	if [ $? -ne 0 ]; then 
+		echo $NO_GIT_FOUND
+		exit 1
+	fi
+
+	if [ -z $(git config --get user.email) ]; then
+		echo $CONFIG_QUESTION_EMAIL_ADDRESS
+		read email
+		if [ -z $email ]; then
+			echo $CONFIG_UNKNOWN_EMAIL_ADDRESS
+			exit 1
+		fi
+
+		git config --global user.email $email
+	fi
+
+	if [[ -z $(git config --get user.name) ]]; then
+		echo $CONFIG_QUESTION_REAL_NAME
+		read username
+		if [ -z "$username" ]; then
+			echo CONFIG_UNKNOWN_REAL_NAME
+			exit 1
+		fi
+
+		git config --global user.name "$username"
+	fi
+
+	#check if a gpg key exists and create one if not
+	if [[ -z $(gpg --list-key) ]]; then
+		gpg --gen-key
+		exit 0
+	fi
+}
+
+checkDefaultConfigSettings
+
+#list of available commands and allowed option characters
+declare -A GMT_CMD
+GMT_CMD=(
+	["cl"]="b"	#clear
+	["pl"]="" 	#pull
+	["ps"]=""	#push
+	["cm"]=""	#commit -a
+	["co"]=""	#checkout
+	["df"]=""
+	["nb"]=""   #checkout -b
+	["shw"]=""	#show details of a branch? repo?
+	["cmp"]=""	#compare two branches with one another?
+)
+
+#handle command run and options given
+if [ -z $1 ]; then
+	#add description indicating -h for more info on available commands
+	echo $UNRECOGNISED_OC_COMMAND
+	exit 1	
+elif [[ -z "${GMT_CMD[$1] + 1}" ]]; then
+	echo $UNKNOWN_OC_COMMAND
+	exit 1
+fi
+
+#GIT PULL changes for current branch, defaulting to 'origin' as REMOTE
+function pl {
+	remote="origin"
+
+	if [ $1 ]; then
+		#check if the provided remote actually exists
+		git ls-remote --exit-code $1 2>$1
+		if [ $? != 0 ] && [ $? != 2 ] ; then 
+			echo remote: could not read from remote $remote, please check connection or access credentials and try again
+			exit 1
+		fi
+
+		remote=$1
+	fi	
+
+	git pull $remote $(git name-rev --name-only HEAD)
+	exit 0
+}
+
+#GIT PUSH changes of the current checked-out branch to its REMOTE (default 'origin') 
+function ps {
+	remote="origin"
+
+	if [ $1 ]; then
+		#check if the provided remote actually exists
+		git ls-remote --exit-code $1 2>$1
+		if [ $? != 0 ] && [ $? != 2 ] ; then 
+			echo remote: could not read from remote $1, please check connection or access credentials and try again
+			exit 1
+		fi
+
+		remote=$1
+	fi
+
+	git push $remote $(git name-rev --name-only HEAD)
+	exit 0
+}
+
+#GIT COMMIT ANNOTATED
+#TODO: add option to auto push after commit
+#TODO: add option to ADD & STAGE files before commit(?)
+#NOTE: make this as simple a command as possible (it gets used a lot)
+function cm {
+
+	if [ $1 ]; then
+		echo $USAGE_NO_OPTIONS_REQUIRED
+	fi
+
+	git commit -a
+	exit 0
+}
+
+#GIT DIFF
+function df {
+
+	#todo: if we are reusing this check then move to a function
+	if [ $1 ]; then
+		echo $USAGE_NO_OPTIONS_REQUIRED
+	fi
+
+	git diff
+	exit 0
+}
+
+#GIT CHECKOUT
+function co {
+	remote="origin"
+
+	if [ -z $1 ]; then
+		echo usage: you need to specify a branch to checkout
+	fi
+
+	if [ $2 ]; then
+		#check if the provided remote actually exists
+		git ls-remote --exit-code $2 2>$1
+		if [ $? != 0 ] && [ $? != 2 ] ; then 
+			echo remote: could not read from remote $2, please check connection or access credentials and try again
+			exit 1
+		fi	
+
+		remote=$2	
+	fi	
+
+	#get repo url
+	repo=$(git config --get remote.$remote.url 2>$1)
+
+	#check if branch exists on REMOTE
+	git ls-remote --exit-code --heads $repo $1 2>$1
+	if [ $? == 2 ]; then
+		echo branch: could not read from branch $1, please check connection to repo or that branch exists on remote
+		exit 1 
+	fi 
+
+	git checkout $1
+	exit 0
+}
+
+#git checkout -b - create a NEW BRANCH
+#NOTE: 	Creating a new branch from remote requires first getting the available remote refs `git branch -a`
+#		and then using the prefix of 'origin/' to the specified branch name.
+#NOTE2: Is it possible to auto-complete local command from list of available remote branches
+#function nb {} "New Brancg"
+
+#CLEANSE THE LAND OF THE UN-BELIEVERS!! 
+function cl {
+	if [ -n $1 ] && [[ $1 =~ ^- ]]; then
+
+		if [[ $1 =~ [^-"${GMT_CMD['cl']}"] ]]; then			
+			echo $UNRECOGNISED_COMMAND_OPTION
+			exit 1
+		fi
+
+		option=$(echo $1|sed 's/-//g')
+		if [[ $(expr length $option) -gt 1 ]]; then
+			echo "option: clean can only handle one option per command"
+			exit 1
+		fi
+
+		cl_$option $2
+
+	else 
+		echo $USAGE_EXPECTS_OPTIONS
+		exit 1
+	fi		
+}
+
+#delete local branches which have not yet been merged to a remote yet
+#Option of function cl
+function cl_b {
+	if [ -z $1 ]; then
+		echo param: You must specify which branch type to clean, example 'feature' or 'bigfix'
+		exit 1
+	fi
+
+	regex=^\\s*$1/
+	git branch --merged | grep $regex | xargs git branch -d
+	exit 0
+}
+
+#example usage: oc cl -b feature
+#todo: assign inputs to more descriptive variables(?)
+$1 $2 $3
