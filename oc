@@ -63,8 +63,9 @@ GMT_CMD=(
 	["ps"]=""	#push
 	["cm"]=""	#commit -a
 	["co"]=""	#checkout
-	["df"]=""
-	["lg"]=""
+	["df"]=""	#diff
+	["lg"]=""	#log
+	["mg"]=""	#merge master
 	["nb"]=""   #checkout -b
 	["shw"]=""	#show details of a branch? repo?
 	["cmp"]=""	#compare two branches with one another?
@@ -141,6 +142,30 @@ function df {
 	fi
 
 	git diff
+	exit 0
+}
+
+#GIT MERGE master into local branch
+function mg {
+
+	#todo: move remote verification to seperate function(?)
+	remote="origin"	
+	if [ $2 ]; then
+		#check if the provided remote actually exists
+		git ls-remote --exit-code $2 2>/dev/null
+		if [ $? != 0 ] && [ $? != 2 ] ; then 
+			echo remote: could not read from remote $2, please check connection or access credentials and try again
+			exit 1
+		fi	
+
+		remote=$2	
+	fi	
+
+	git fetch $remote master
+	if [[ $? == 0 ]]; then
+		git merge FETCH_HEAD		
+	fi
+
 	exit 0
 }
 
