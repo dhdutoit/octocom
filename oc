@@ -64,6 +64,7 @@ GMT_CMD=(
 	["cm"]=""	#commit -a
 	["co"]=""	#checkout
 	["df"]=""
+	["lg"]=""
 	["nb"]=""   #checkout -b
 	["shw"]=""	#show details of a branch? repo?
 	["cmp"]=""	#compare two branches with one another?
@@ -141,6 +142,17 @@ function df {
 
 	git diff
 	exit 0
+}
+
+#GIT LOG
+function lg {
+	#todo: if we are reusing this check then move to a function
+	if [ $1 ]; then
+		echo $USAGE_NO_OPTIONS_REQUIRED
+	fi
+
+	git log
+	exit 0	
 }
 
 #GIT CHECKOUT
