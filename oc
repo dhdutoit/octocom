@@ -163,10 +163,10 @@ function co {
 	fi	
 
 	#get repo url
-	repo=$(git config --get remote.$remote.url 2>$1)
+	repo=git config --get remote.$remote.url 2>/dev/null
 
 	#check if branch exists on REMOTE
-	git ls-remote --exit-code --heads $repo $1 2>$1
+	git ls-remote --exit-code --heads $repo $1 2>/dev/null
 	if [ $? == 2 ]; then
 		echo branch: could not read from branch $1, please check connection to repo or that branch exists on remote
 		exit 1 
