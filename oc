@@ -14,6 +14,9 @@ CONFIG_UNKNOWN_REAL_NAME="config: don't be like that, you need to give octocom a
 USAGE_NO_OPTIONS_REQUIRED="usage: this command does not use options at the moment"
 USAGE_EXPECTS_OPTIONS="usage: the command expects at least one option to be provided."
 
+#todo: move all feedback strings ^
+#todo: set default branch-name prefixes
+
 function checkDefaultConfigSettings {
 
 	#inform the user if git is not installed on the host
@@ -67,6 +70,7 @@ GMT_CMD=(
 	["lg"]=""	#log
 	["mg"]=""	#merge master
 	["nb"]=""   #checkout -b
+	["cn"]=""	#clone
 	["shw"]=""	#show details of a branch? repo?
 	["cmp"]=""	#compare two branches with one another?
 )
@@ -154,7 +158,7 @@ function mg {
 		#check if the provided remote actually exists
 		git ls-remote --exit-code $2 2>/dev/null
 		if [ $? != 0 ] && [ $? != 2 ] ; then 
-			echo remote: could not read from remote $2, please check connection or access credentials and try again
+			echo remote: could not read from remote $2, please check connection or access credentials and try again..perhaps..?
 			exit 1
 		fi	
 
@@ -187,14 +191,15 @@ function co {
 	remote="origin"
 
 	if [ -z $1 ]; then
-		echo usage: you need to specify a branch to checkout
+		echo usage: you need to tell octocom which vranch you want to checkout..
+		exit 1
 	fi
 
 	if [ $2 ]; then
 		#check if the provided remote actually exists
 		git ls-remote --exit-code $2 2>$1
 		if [ $? != 0 ] && [ $? != 2 ] ; then 
-			echo remote: could not read from remote $2, please check connection or access credentials and try again
+			echo remote: octocom could not read from remote $2, please double check everything is ok with the remote and try again..perhaps..?
 			exit 1
 		fi	
 
@@ -215,11 +220,40 @@ function co {
 	exit 0
 }
 
-#git checkout -b - create a NEW BRANCH
 #NOTE: 	Creating a new branch from remote requires first getting the available remote refs `git branch -a`
 #		and then using the prefix of 'origin/' to the specified branch name.
 #NOTE2: Is it possible to auto-complete local command from list of available remote branches
-#function nb {} "New Brancg"
+function nb {
+
+	if [ -z $1 ]; then
+		echo usage: octocom wonders what you want to call the new branch..
+		exit 1
+	fi	
+
+	git checkout -b $1
+	exit 0
+}
+
+#GIT CLONE
+#todo: find out if one can list/autocomplete known remote repo/project URLs from a server(?)
+function cn {
+
+	if [ -z $1 ]; then
+		echo usage: octocom wonders what repo you wish to clone..?
+		exit 1
+	else 
+		repo_url=$1
+	fi
+
+	destination="."
+
+	if [ $2 ]; then
+		destination=$2
+	fi
+
+	git clone --progress $repo_url $destination
+	exit 0
+}
 
 #CLEANSE THE LAND OF THE UN-BELIEVERS!! 
 function cl {
