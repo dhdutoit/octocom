@@ -71,6 +71,10 @@ GMT_CMD=(
 	["mg"]=""	#merge master
 	["nb"]=""   #checkout -b
 	["cn"]=""	#clone
+	["ft"]=""	#fetch
+	["ra"]=""	#remote add
+	["br"]=""	#branch
+	["mt"]=""	#mergetool
 	["shw"]=""	#show details of a branch? repo?
 	["cmp"]=""	#compare two branches with one another?
 )
@@ -188,16 +192,17 @@ function lg {
 
 #GIT CHECKOUT
 function co {
-	remote="origin"
 
-	if [ -z $1 ]; then
-		echo usage: you need to tell octocom which vranch you want to checkout..
-		exit 1
+	remote="origin"
+	branch="master"
+
+	if [ $1 ]; then
+		branch=$1
 	fi
 
 	if [ $2 ]; then
 		#check if the provided remote actually exists
-		git ls-remote --exit-code $2 2>$1
+		git ls-remote --exit-code $2 2>/dev/null
 		if [ $? != 0 ] && [ $? != 2 ] ; then 
 			echo remote: octocom could not read from remote $2, please double check everything is ok with the remote and try again..perhaps..?
 			exit 1
@@ -216,7 +221,7 @@ function co {
 		exit 1 
 	fi 
 
-	git checkout $1
+	git checkout $branch
 	exit 0
 }
 
@@ -252,6 +257,53 @@ function cn {
 	fi
 
 	git clone --progress $repo_url $destination
+	exit 0
+}
+
+#GIT FETCH
+function ft {
+
+	git fetch origin
+	exit 0
+}
+
+#GIT REMOTE ADD
+function ra {
+
+	if [ -z $1 ]; then
+		echo usage: octocom does not know what you want to call the new remote..?
+		exit 1
+	fi
+
+	#todo: check that the given name does not already exist in list of know remotes
+
+	if [ -z $2 ]; then
+		echo usage: octocom thinks you may have forgotten to give the repo url of the remote to add..?
+		exit 1
+	fi
+
+	#todo: loop through existing remotes and determine if given url compares to any of them
+	#NOTE: default checks against origin remote url
+	repo=git config --get remote.origin.url 2>/dev/null
+	if [ repo == $2 ]; then
+		echo usage: er..you are trying to add a remote url that octocom already knows of..
+	fi
+
+	git remote add $1 $2
+	exit 0
+}
+
+#GIT BRANCH
+function br {
+
+	git branch
+	exit 0
+}
+
+#GIT MERGETOOL
+function mt {
+
+	git mergetool
 	exit 0
 }
 
