@@ -61,7 +61,7 @@ checkDefaultConfigSettings
 #list of available commands and allowed option characters
 declare -A GMT_CMD
 GMT_CMD=(
-	["cl"]="b"	#clear
+	["cl"]=""	#clear
 	["pl"]="" 	#pull
 	["ps"]=""	#push
 	["cm"]=""	#commit -a
@@ -75,8 +75,6 @@ GMT_CMD=(
 	["ra"]=""	#remote add
 	["br"]=""	#branch
 	["mt"]=""	#mergetool
-	["shw"]=""	#show details of a branch? repo?
-	["cmp"]=""	#compare two branches with one another?
 )
 
 #handle command run and options given
@@ -309,32 +307,9 @@ function mt {
 
 #CLEANSE THE LAND OF THE UN-BELIEVERS!! 
 function cl {
-	if [ -n $1 ] && [[ $1 =~ ^- ]]; then
-
-		if [[ $1 =~ [^-"${GMT_CMD['cl']}"] ]]; then			
-			echo $UNRECOGNISED_COMMAND_OPTION
-			exit 1
-		fi
-
-		option=$(echo $1|sed 's/-//g')
-		if [[ $(expr length $option) -gt 1 ]]; then
-			echo "option: clean can only handle one option per command"
-			exit 1
-		fi
-
-		cl_$option $2
-
-	else 
-		echo $USAGE_EXPECTS_OPTIONS
-		exit 1
-	fi		
-}
-
-#delete local branches which have not yet been merged to a remote yet
-#Option of function cl
-function cl_b {
+	
 	if [ -z $1 ]; then
-		echo param: You must specify which branch type to clean, example 'feature' or 'bigfix'
+		echo param: You must specify which branch type to clean, example 'feature' or 'bugfix'
 		exit 1
 	fi
 
@@ -343,6 +318,6 @@ function cl_b {
 	exit 0
 }
 
-#example usage: oc cl -b feature
+#example usage: oc cl feature
 #todo: assign inputs to more descriptive variables(?)
 $1 $2 $3
