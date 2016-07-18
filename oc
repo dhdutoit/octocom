@@ -62,8 +62,8 @@ checkDefaultConfigSettings
 declare -A GMT_CMD
 GMT_CMD=(
 	["cl"]=""	#clear
-	["pl"]="" 	#pull
-	["ps"]=""	#push
+	["pl"]="git pull <repo> <current branch>. <repo> will default to 'origin' and pull will be for the currently checked out branch." 	#pull
+	["ps"]="git push <repo> <current branch>. <repo> will default to 'origin' and push will be for the currently checked out branch."	#push
 	["cm"]=""	#commit -a
 	["co"]=""	#checkout
 	["df"]=""	#diff
