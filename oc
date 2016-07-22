@@ -202,7 +202,7 @@ function lg {
 function co {
 
 	remote="origin"
-	branch="master"
+	branch="master"	
 
 	if [ $1 ]; then
 		branch=$1
@@ -227,6 +227,9 @@ function co {
 	if [ $? == 2 ]; then
 		echo branch: could not read from branch $1, please check connection to repo or that branch exists on remote
 		exit 1 
+	else
+		#do a fetch in case the branch in new in remote but never checked out lcoally
+		ft $remote
 	fi 
 
 	git checkout $branch
@@ -271,8 +274,13 @@ function cn {
 #GIT FETCH
 function ft {
 
-	git fetch origin
-	exit 0
+	remote="origin"
+
+	if [ $1 ]; then
+		remote=$1
+	fi
+
+	git fetch $remote
 }
 
 #GIT REMOTE ADD
