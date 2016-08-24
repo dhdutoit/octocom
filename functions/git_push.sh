@@ -1,6 +1,8 @@
 #!/bin/bash
 
 #GIT PUSH changes of the current checked-out branch to its REMOTE (default 'origin') 
+#@todo Add check for any added/unstaged work and inform user
+#@todo If possible list the unsatged files and allow input to auto add them
 function ps {
 	remote="origin"
 
