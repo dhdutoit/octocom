@@ -24,3 +24,7 @@ function ra {
 	git remote add $1 $2
 	exit 0
 }
+
+function ra_help {
+	echo @todo add help description
+}

@@ -10,3 +10,7 @@ function ft {
 
 	git fetch $remote
 }
+
+function ft_help {
+	echo @todo add help description
+}

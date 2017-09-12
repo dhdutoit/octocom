@@ -10,3 +10,7 @@ function df {
 	git diff
 	exit 0
 }
+
+function df_help {
+	echo @todo add help description
+}

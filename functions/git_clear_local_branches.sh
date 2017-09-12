@@ -1,9 +1,9 @@
 #!/bin/bash
 
 
-#CLEANSE THE LAND OF THE UN-BELIEVERS!! 
+#CLEANSE THE LAND OF THE UN-BELIEVERS!!
 function cl {
-	
+
 	if [ -z $1 ]; then
 		echo param: You must specify which branch type to clean, example 'feature' or 'bugfix'
 		exit 1
@@ -12,4 +12,8 @@ function cl {
 	regex=^\\s*$1/
 	git branch --merged | grep $regex | xargs git branch -d
 	exit 0
+}
+
+function cl_help {
+	echo @todo add help description
 }

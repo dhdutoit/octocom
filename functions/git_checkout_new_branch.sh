@@ -8,8 +8,12 @@ function nb {
 	if [ -z $1 ]; then
 		echo usage: octocom wonders what you want to call the new branch..
 		exit 1
-	fi	
+	fi
 
 	git checkout -b $1
 	exit 0
+}
+
+function nb_help {
+	echo @todo add help description
 }

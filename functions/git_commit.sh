@@ -12,3 +12,7 @@ function cm {
 	git commit -a
 	exit 0
 }
+
+function cm_help {
+	echo @todo add help description
+}

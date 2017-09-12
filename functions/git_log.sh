@@ -9,5 +9,9 @@ function lg {
 	fi
 
 	git log
-	exit 0	
+	exit 0
+}
+
+function lg_help {
+	echo @todo add help description
 }
