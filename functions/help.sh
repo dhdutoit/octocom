@@ -7,3 +7,7 @@ function help {
 		${i}_help
 	done
 }
+
+function help_help {
+	echo @todo add help description
+}

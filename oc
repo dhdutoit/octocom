@@ -25,7 +25,7 @@ GMT_CMD=(
 	["cl"]=""	#clear
 	["pl"]="'git pull <repo> <current branch>'. <repo> will default to 'origin' and pull will be for the currently checked out branch."
 	["ps"]="'git push <repo> <current branch>'. <repo> will default to 'origin' and push will be for the currently checked out branch."
-	["cm"]="'git commit -a' Do an annotated commit of all staged canges to the local branch."	
+	["cm"]="'git commit -a' Do an annotated commit of all staged canges to the local branch."
 	["co"]=""	#checkout
 	["df"]=""	#diff
 	["lg"]=""	#log
@@ -43,7 +43,7 @@ GMT_CMD=(
 if [ -z $1 ]; then
 	#add description indicating -h for more info on available commands
 	echo $UNRECOGNISED_OC_COMMAND
-	exit 1	
+	exit 1
 elif [[ -z "${GMT_CMD[$1] + 1}" ]]; then
 	echo $UNKNOWN_OC_COMMAND
 	exit 1
