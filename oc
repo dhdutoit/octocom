@@ -44,7 +44,7 @@ if [ -z $1 ]; then
 	#add description indicating -h for more info on available commands
 	echo $UNRECOGNISED_OC_COMMAND
 	exit 1
-elif [[ -z "${GMT_CMD[$1] + 1}" ]]; then
+elif [[ -z ${GMT_CMD[$1]+1} ]]; then
 	echo $UNKNOWN_OC_COMMAND
 	exit 1
 fi

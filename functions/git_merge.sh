@@ -1,19 +1,20 @@
 #!/bin/bash
+# Part of the open-source octocom project
+# License to still be decided - 2017
+# Copyright David du Toit <dhdutoit@gmail.com> 2016-2017
 
 function mg {
-
-	#todo: move remote verification to seperate function(?)
 	remote="origin"
 
-	if [ $2 ]; then
+	if [ $1 ]; then
 		#check if the provided remote actually exists
-		git ls-remote --exit-code $2 2>/dev/null
+		git ls-remote --exit-code $1 2>/dev/null
 		if [ $? != 0 ] && [ $? != 2 ] ; then
-			echo remote: could not read from remote $2, please check connection or access credentials and try again..perhaps..?
+			echo remote: could not read from remote $1, please check connection or access credentials and try again..perhaps..?
 			exit 1
 		fi
 
-		remote=$2
+		remote=$1
 	fi
 
 	git fetch $remote master
@@ -25,5 +26,8 @@ function mg {
 }
 
 function mg_help {
-	echo @todo add help description
+	echo usage: oc mg [remote]
+	echo "$(printf '\t')"Merge MASTER branch into local branch, from its remote, which defaults to \'origin\' if not provided.
+	echo "$(printf '\t')"- Will check if provided remote exists.
+	echo "$(printf '\t')"- Will fetch master first and merge FETCH_HEAD, so no local checkout of MASTER is required.
 }
