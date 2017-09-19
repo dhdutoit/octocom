@@ -14,5 +14,7 @@ function cm {
 }
 
 function cm_help {
-	echo @todo add help description
+	echo usage: oc cm
+	echo "$(printf '\t')"Do an annotated (-a) commit with no additional options.
+	echo "$(printf '\t')"- @todo allow specifying of files to commit (no -a option)
 }
