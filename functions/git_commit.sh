@@ -13,7 +13,7 @@ function cm {
 }
 
 function cm_help {
-	echo usage: oc cm
+	echo "usage: oc cm"
 	echo "$(printf '\t')Do an annotated (-a) commit with no additional options."
 	echo "$(printf '\t')- @todo allow specifying of files to commit (no -a option)"
 	echo "$(printf '\t')- @todo add option to auto push after successful commit"
