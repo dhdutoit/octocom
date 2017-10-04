@@ -4,7 +4,6 @@
 # Copyright David du Toit <dhdutoit@gmail.com> 2016-2017
 
 function cn {
-
 	if [ -z $1 ]; then
 		echo usage: octocom wonders what repo you wish to clone..?
 		exit 1

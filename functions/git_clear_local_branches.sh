@@ -5,7 +5,6 @@
 
 #CLEANSE THE LAND OF THE UN-BELIEVERS!! :)
 function cl {
-
 	if [ -z $1 ]; then
 		echo param: You must specify which branch type to clean, example 'feature' or 'bugfix'
 		exit 1

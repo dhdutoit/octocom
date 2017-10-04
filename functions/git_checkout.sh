@@ -1,9 +1,12 @@
 #!/bin/bash
+# Part of the open-source octocom project
+# License to still be decided - 2017
+# Copyright David du Toit <dhdutoit@gmail.com> 2016-2017
 
 function co {
-
 	remote="origin"
 	branch="master"
+	repo=""
 
 	if [ $1 ]; then
 		branch=$1
@@ -38,5 +41,7 @@ function co {
 }
 
 function co_help {
-	echo @todo add help description
+	echo "usage: oc co [branch-name] [remote]"
+	echo "$(printf '\t')Check if branch exists on the remote and does fetch & checkout of the branch"
+	echo "$(printf '\t')If none provided then branch will default to 'master' and remote to 'origin'"
 }
