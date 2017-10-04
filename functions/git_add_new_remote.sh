@@ -1,7 +1,9 @@
 #!/bin/bash
+# Part of the open-source octocom project
+# License to still be decided - 2017
+# Copyright David du Toit <dhdutoit@gmail.com> 2016-2017
 
 function ra {
-
 	if [ -z $1 ]; then
 		echo usage: octocom does not know what you want to call the new remote..?
 		exit 1
@@ -26,5 +28,7 @@ function ra {
 }
 
 function ra_help {
-	echo @todo add help description
+	echo "usage: oc ra [remote-name] [remote-url]"
+	echo "$(sprintf '\t')create a new local remote using remote url"
+	echo "$(sprintf '\t') - todo check that the given remote name does not already exist in list of known remotes"
 }
