@@ -1,16 +1,18 @@
 #!/bin/bash
+# Part of the open-source octocom project
+# License to still be decided - 2017
+# Copyright David du Toit <dhdutoit@gmail.com> 2016-2017
 
 function checkDefaultConfigSettings {
-
 	#inform the user if git is not installed on the host
-	#NOTE: perhaps display links to install/download git in feedback(?)
+	#@todo: perhaps display links to install/download git in feedback(?)
 	git --version >/dev/null
-	if [ $? -ne 0 ]; then 
+	if [ $? -ne 0 ]; then
 		echo $NO_GIT_FOUND
 		exit 1
 	fi
 
-	if [ -z $(git config --get user.email) ]; then
+	if [ -z "$(git config --get user.email)" ]; then
 		echo $CONFIG_QUESTION_EMAIL_ADDRESS
 		read email
 		if [ -z $email ]; then
