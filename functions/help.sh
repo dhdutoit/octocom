@@ -11,5 +11,4 @@ function help {
 function help_help {
 	echo General TODOs;
 	echo "$(printf '\t')"- move checks for the [remote] to a seperate/reusable function.
-	echo @todo add help description
 }

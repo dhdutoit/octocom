@@ -4,7 +4,6 @@
 # Copyright David du Toit <dhdutoit@gmail.com> 2016-2017
 
 function df {
-	#todo: if we are reusing this check then move to a function
 	if [ $1 ]; then
 		echo $USAGE_NO_OPTIONS_REQUIRED
 	fi
@@ -14,6 +13,7 @@ function df {
 }
 
 function df_help {
-	echo usage: oc df
-	echo "$(printf '\t')"Show diff of local, unversioned, changes to files.
+	echo "usage: oc df"
+	echo "$(printf '\t')Show diff of local, unversioned, changes to files."
+	echo "$(printf '\t')- @todo combine status with diff output in a nice way"
 }

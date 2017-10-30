@@ -1,8 +1,9 @@
 #!/bin/bash
+# Part of the open-source octocom project
+# License to still be decided - 2017
+# Copyright David du Toit <dhdutoit@gmail.com> 2016-2017
 
-#todo: find out if one can list/autocomplete known remote repo/project URLs from a server(?)
 function cn {
-
 	if [ -z $1 ]; then
 		echo usage: octocom wonders what repo you wish to clone..?
 		exit 1
@@ -21,5 +22,7 @@ function cn {
 }
 
 function cn_help {
-	echo @todo add help description
+	echo "usage: oc cn [repo-url] [destination]"
+	echo "$(printf '\t')Clone provided [repo-url] into [location]. Location will default to current folder if none provided."
+	echo "$(printf '\t')- @todo determine if it would be possible to select [repo-url] from a list of repos available on a server/project"
 }

@@ -1,10 +1,9 @@
 #!/bin/bash
+# Part of the open-source octocom project
+# License to still be decided - 2017
+# Copyright David du Toit <dhdutoit@gmail.com> 2016-2017
 
-#NOTE: 	Creating a new branch from remote requires first getting the available remote refs `git branch -a`
-#		and then using the prefix of 'origin/' to the specified branch name.
-#NOTE2: Is it possible to auto-complete local command from list of available remote branches
 function nb {
-
 	if [ -z $1 ]; then
 		echo usage: octocom wonders what you want to call the new branch..
 		exit 1
@@ -15,5 +14,8 @@ function nb {
 }
 
 function nb_help {
-	echo @todo add help description
+	echo "usage: oc nb [branch-name]"
+	echo "$(printf '\t')Create a new local branch from the current checkedout branch (checkout -b)"
+	echo "$(printf '\t') - todo find a way to create new local branch from a remote brach (not checked out)"
+	echo "$(printf '\t') - NOTE: to get list or remote branches the refs are needed from 'git branch -a'"
 }
