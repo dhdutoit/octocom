@@ -29,6 +29,6 @@ function ra {
 
 function ra_help {
 	echo "usage: oc ra [remote-name] [remote-url]"
-	echo "$(sprintf '\t')create a new local remote using remote url"
-	echo "$(sprintf '\t') - todo check that the given remote name does not already exist in list of known remotes"
+	echo "$(printf '\t')create a new local remote using remote url"
+	echo "$(printf '\t') - todo check that the given remote name does not already exist in list of known remotes"
 }
