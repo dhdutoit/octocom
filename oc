@@ -36,6 +36,7 @@ GMT_CMD=(
 	["ra"]=""	#remote add
 	["br"]=""	#branch
 	["mt"]=""	#mergetool
+	["nb"]=""	#new local branch
 	["help"]=""
 )
 
