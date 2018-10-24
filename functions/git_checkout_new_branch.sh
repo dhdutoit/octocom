@@ -14,8 +14,16 @@ function nb {
 }
 
 function nb_help {
-	echo "usage: oc nb [branch-name]"
-	echo "$(printf '\t')Create a new local branch from the current checkedout branch (checkout -b)"
-	echo "$(printf '\t') - todo find a way to create new local branch from a remote brach (not checked out)"
-	echo "$(printf '\t') - NOTE: to get list or remote branches the refs are needed from 'git branch -a'"
+
+
+	command="CHECKOUT -b"
+	usage="nb"
+	declare -a descriptions
+	descriptions=(
+	"Create a new branch, from current branch, locally."
+	"@todo find a way to create new local branch from a remote brach (not checked out)"
+	"@todo to get list or remote branches the refs are needed from 'git branch -a'"
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }
