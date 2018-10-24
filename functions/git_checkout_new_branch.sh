@@ -14,8 +14,6 @@ function nb {
 }
 
 function nb_help {
-
-
 	command="CHECKOUT -b"
 	usage="nb"
 	declare -a descriptions
