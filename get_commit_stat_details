@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#number of commits in last X months
+commit_count=$(git log --oneline --author="Andre Smith" --since=2.months | wc -l)
+
+#commit details for last X months
+commit_details=$(git log --stat --author='Andre Smith' --since=2.month --all --pretty=format:'* %ar %n -- %s')
+
+merge_branch_count=$($commit_details | grep -o 'Merge branch' | wc -l)
+
+merge_pull_request_count=$($commit_details | grep -o 'Merge pull request' | wc -l)
+
+echo Total commits in last X months - $commit_count
