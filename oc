@@ -41,14 +41,6 @@ GMT_CMD=(
 	["help"]=""
 )
 
-red=$'\e[1;31m'
-green=$'\e[1;32m'
-yellow=$'\e[1;33m'
-blue=$'\e[1;34m'
-magenta=$'\e[1;35m'
-cyan=$'\e[1;36m'
-end=$'\e[0m'
-
 #handle command run and options given
 if [ -z $1 ]; then
 	#add description indicating -h for more info on available commands
