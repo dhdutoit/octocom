@@ -14,8 +14,14 @@ function lg {
 }
 
 function lg_help {
-	echo usage: oc lg
-	echo "$(printf '\t')"Show log of current branch commits.
-	echo "$(printf '\t')"- @todo add default options to beautify the log details.
-	echo "$(printf '\t')"- @todo move reused check for options not neede to external function /  file.
+	command="SHOW LOGS"
+	usage="lg"
+	declare -a descriptions
+	descriptions=(
+	"Show log of current branch commits."
+	"@todo add default options to beautify the log details."
+	"@todo move reused check for options not neede to external function/file."
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }

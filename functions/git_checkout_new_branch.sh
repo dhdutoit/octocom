@@ -14,7 +14,7 @@ function nb {
 }
 
 function nb_help {
-	command="CHECKOUT -b"
+	command="CHECKOUT -b (new branch)"
 	usage="nb"
 	declare -a descriptions
 	descriptions=(

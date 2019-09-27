@@ -9,6 +9,12 @@ function br {
 }
 
 function br_help {
-	echo "usage: oc br"
-	echo "$(printf '\t')Lists the local branches"
+	command="BRANCH"
+	usage="br"
+	declare -a descriptions
+	descriptions=(
+	"Lists the local branches."
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }

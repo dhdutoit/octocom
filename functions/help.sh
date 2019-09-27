@@ -25,6 +25,12 @@ function help {
 }
 
 function help_help {
-	echo General TODOs;
-	echo "$(printf '\t')"- move checks for the [remote] to a seperate/reusable function.
+	command="HELP"
+	usage="help"
+	declare -a descriptions
+	descriptions=(
+	"Displays this message."
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }

@@ -9,8 +9,10 @@ function mt {
 }
 
 function mt_help {
-	echo usage: oc mt
-	echo "$(printf '\t')"Open the mergetool for current branch in order to deal with conflicts.
-	echo "$(printf '\t')"- Will check if provided remote exists.
-	echo "$(printf '\t')"- @todo add checks and setup steps if merge tool does not set up.
+	command="MERGETOOL"
+	usage="mt"
+	declare -a descriptions
+	descriptions=("Starts the 'git mergetool' that is locally setup.")
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }

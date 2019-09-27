@@ -13,7 +13,13 @@ function df {
 }
 
 function df_help {
-	echo "usage: oc df"
-	echo "$(printf '\t')Show diff of local, unversioned, changes to files."
-	echo "$(printf '\t')- @todo combine status with diff output in a nice way"
+	command="DIFF"
+	usage="df"
+	declare -a descriptions
+	descriptions=(
+	"Show diff of local, unversioned, changes to files."
+	"@todo combine status with diff output in a nice way."
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }
