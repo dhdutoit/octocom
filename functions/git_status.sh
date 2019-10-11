@@ -34,7 +34,13 @@ function st {
 	exit 0
 }
 
-function ad_help {
-	echo "usage: oc br"
-	echo "$(printf '\t')Lists the local branches"
+function st_help {
+	command="STATUS"
+	usage="st [NOT FUNCTIONAL AT THE TIME]"
+	declare -a descriptions
+	descriptions=(
+	"@todo REVIEW AND IMPLEMENT THIS OPTION"
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }
