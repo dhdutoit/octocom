@@ -16,7 +16,13 @@ function cl {
 }
 
 function cl_help {
-	echo "usage: oc cl [branch-type]"
-	echo "$(printf '\t')Delete all local branches of type [branch-type], that have been merged."
-	echo "$(printf '\t')Example: [branch-type] would be the 'feature' in 'feature/adding-help-text'"
+	command="DELET BRANCHES"
+	usage="cl [branch-type]"
+	declare -a descriptions
+	descriptions=(
+	"Delete all local branches of type [branch-type], that have been merged."
+	"Example: [branch-type] would be the 'feature' in 'feature/adding-help-text'."
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }

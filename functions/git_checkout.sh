@@ -41,7 +41,13 @@ function co {
 }
 
 function co_help {
-	echo "usage: oc co [branch-name] [remote]"
-	echo "$(printf '\t')Check if branch exists on the remote and does fetch & checkout of the branch"
-	echo "$(printf '\t')If none provided then branch will default to 'master' and remote to 'origin'"
+	command="CHECKOUT"
+	usage="co [branch-name] [remote]"
+	declare -a descriptions
+	descriptions=(
+	"Check if branch exists on the remote and does fetch & checkout of the branch."
+	"If none provided then branch will default to 'master' and remote to 'origin'."
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }

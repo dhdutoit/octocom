@@ -22,9 +22,16 @@ function ps {
 }
 
 function ps_help {
-	echo usage: oc ps [remote]
-	echo "$(printf '\t')"Push changes of checked-out branch to its remote, which defaults to \'origin\' if not provided.
-	echo "$(printf '\t')"- Will check if provided remote exists.
-	echo "$(printf '\t')"- @todo Add check for any added/unstaged work and inform user..
-	echo "$(printf '\t')"- @todo If possible list the unsatged files and allow input to auto add them..
+	command="PUSH"
+	usage="ps [remote]"
+	declare -a descriptions
+	descriptions=(
+	"Push changes of lcoal branch to its remote"
+	"If remote not provided ps will default to origin of local brach"
+	"Will check if provided remote exists before attemping to push data"
+	"@todo Add check for any added/unstaged work and inform user"
+	"@todo If possible list the unsatged files and allow input to auto add them"
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }

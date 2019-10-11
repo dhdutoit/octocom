@@ -22,7 +22,14 @@ function pl {
 }
 
 function pl_help {
-	echo usage: oc pl [remote]
-	echo "$(printf '\t')"Pull changes of checked-out branch from its remote, which defaults to \'origin\' if not provided.
-	echo "$(printf '\t')"- Will check if provided remote exists.
+	command="PULL"
+	usage="pl [remote]"
+	declare -a descriptions
+	descriptions=(
+	"Pull changes of lcoal branch to from its remote"
+	"If remote not provided ps will default to origin of local brach"
+	"Will check if provided remote exists before attemping to push data"
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }

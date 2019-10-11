@@ -21,6 +21,12 @@ function ft {
 }
 
 function ft_help {
-	echo usage: oc ft [remote]
-	echo "$(printf '\t')"Fetch details from remote, which defaults to \'origin\' if not provided.
+	command="FETCH"
+	usage="ft [remote]"
+	declare -a descriptions
+	descriptions=(
+	"Fetch details from remote, which defaults to \'origin\' if not provided."
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }

@@ -22,7 +22,13 @@ function cn {
 }
 
 function cn_help {
-	echo "usage: oc cn [repo-url] [destination]"
-	echo "$(printf '\t')Clone provided [repo-url] into [location]. Location will default to current folder if none provided."
-	echo "$(printf '\t')- @todo determine if it would be possible to select [repo-url] from a list of repos available on a server/project"
+	command="CLONE"
+	usage="cn [repo-url] [destination]"
+	declare -a descriptions
+	descriptions=(
+	"Clone provided [repo-url] into [location]. Location will default to current folder if none provided."
+	"@todo determine if it would be possible to select [repo-url] from a list of repos available on a server/project."
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }

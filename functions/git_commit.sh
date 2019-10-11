@@ -13,9 +13,15 @@ function cm {
 }
 
 function cm_help {
-	echo "usage: oc cm"
-	echo "$(printf '\t')Do an annotated (-a) commit with no additional options."
-	echo "$(printf '\t')- @todo allow specifying of files to commit (no -a option)"
-	echo "$(printf '\t')- @todo add option to auto push after successful commit"
-	echo "$(printf '\t')- @todo list files eligable for staging/adding and selection to choose what to do with each"
+	command="COMMIT"
+	usage="cm"
+	declare -a descriptions
+	descriptions=(
+	"Do an annotated (-a) commit with no additional options"
+	"@todo allow specifying of files to commit (no -a option)"
+	"@todo add option to auto push after successful commit"
+	"@todo list files eligable for staging/adding and selection to choose what to do with each"
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }

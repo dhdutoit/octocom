@@ -26,8 +26,15 @@ function mg {
 }
 
 function mg_help {
-	echo usage: oc mg [remote]
-	echo "$(printf '\t')"Merge MASTER branch into local branch, from its remote, which defaults to \'origin\' if not provided.
-	echo "$(printf '\t')"- Will check if provided remote exists.
-	echo "$(printf '\t')"- Will fetch master first and merge FETCH_HEAD, so no local checkout of MASTER is required.
+	command="MERGE"
+	usage="mg [remote]"
+	declare -a descriptions
+	descriptions=(
+	"Merge MASTER branch into local branch from its remote"
+	"If no remote is provided mg will default to remote of local branch"
+	"Will check if remote exists"
+	"Will fetch master and merge FETCH_HEAD, so no local checkout of MASTER is required"
+	)
+
+	printHelp "$command" "$usage" "${descriptions[@]}"
 }
