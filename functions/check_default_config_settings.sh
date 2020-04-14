@@ -7,14 +7,14 @@ function checkDefaultConfigSettings {
 	#inform the user if git is not installed on the host
 	#@todo: perhaps display links to install/download git in feedback(?)
 	git --version >/dev/null
-	if [ $? -ne 0 ]; then
+  if [ $? -ne 0 ]; then
 		echo $NO_GIT_FOUND
 		exit 1
 	fi
 
 	if [ -z "$(git config --get user.email)" ]; then
 		echo $CONFIG_QUESTION_EMAIL_ADDRESS
-		read email
+		read -r email
 		if [ -z $email ]; then
 			echo $CONFIG_UNKNOWN_EMAIL_ADDRESS
 			exit 1
@@ -24,8 +24,8 @@ function checkDefaultConfigSettings {
 	fi
 
 	if [[ -z $(git config --get user.name) ]]; then
-		echo $CONFIG_QUESTION_REAL_NAME
-		read username
+		echo "$CONFIG_QUESTION_REAL_NAME"
+		read -r username
 		if [ -z "$username" ]; then
 			echo CONFIG_UNKNOWN_REAL_NAME
 			exit 1
