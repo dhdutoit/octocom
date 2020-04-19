@@ -17,8 +17,6 @@ function mg {
 		remote=$1
 	fi
 
-
-	# if [[ $? == 0 ]]; then
 	if [ "$(git fetch "$remote" master)" ]; then
 		git merge FETCH_HEAD
 	fi
