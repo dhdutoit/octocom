@@ -6,18 +6,18 @@
 function ft {
 	remote="origin"
 
-	if [ $1 ]; then
+	if [ "$1" ]; then
 		#check if the provided remote actually exists
-		git ls-remote --exit-code $1 2>/dev/null
+		git ls-remote --exit-code "$1" 2>/dev/null
 		if [ $? != 0 ] && [ $? != 2 ] ; then
-			echo remote: could not read from remote $1, please check connection or access credentials and try again..perhaps..?
+			echo remote: could not read from remote "$1", please check connection or access credentials and try again?
 			exit 1
 		fi
 
 		remote=$1
 	fi
 
-	git fetch $remote
+	git fetch "$remote"
 }
 
 function ft_help {
