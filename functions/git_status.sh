@@ -24,7 +24,7 @@ function st {
 		else
 			#add colour to the output of the list for readability
 			git ls-files -o --exclude-standard
-			read -e -p "Would you like to add these untracked files/changes?" YN
+			read -r -e -p "Would you like to add these untracked files/changes?" YN
 			if [[ $YN == "y" || $YN == "Y" ]]; then
 				git add $UNTRACKED
 			fi
@@ -36,10 +36,14 @@ function st {
 
 function st_help {
 	command="STATUS"
-	usage="st [NOT FUNCTIONAL AT THE TIME]"
+	usage="st [option]"
 	declare -a descriptions
 	descriptions=(
-	"@todo REVIEW AND IMPLEMENT THIS OPTION"
+	"Displays very detailed output of current status. Press 'q' to exit details display"
+	"!!@TODO - the below options still need to be tested and corrected !!"
+	"Options available are:"
+	"-u Which will only display untracked files"
+	"-a Will add any untracked files"
 	)
 
 	printHelp "$command" "$usage" "${descriptions[@]}"

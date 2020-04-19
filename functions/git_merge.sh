@@ -6,22 +6,21 @@
 function mg {
 	remote="origin"
 
-	if [ $1 ]; then
+	if [ "$1" ]; then
 		#check if the provided remote actually exists
-		git ls-remote --exit-code $1 2>/dev/null
+		git ls-remote --exit-code "$1" 2>/dev/null
 		if [ $? != 0 ] && [ $? != 2 ] ; then
-			echo remote: could not read from remote $1, please check connection or access credentials and try again..perhaps..?
+			echo remote: could not read from remote "$1", please check connection or access credentials and try again..perhaps..?
 			exit 1
 		fi
 
 		remote=$1
 	fi
 
-	git fetch $remote master
+	git fetch "$remote" master
 	if [[ $? == 0 ]]; then
 		git merge FETCH_HEAD
 	fi
-
 	exit 0
 }
 
