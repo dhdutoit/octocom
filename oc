@@ -38,6 +38,7 @@ GMT_CMD=(
 	["mt"]=""	#mergetool
 	["nb"]=""	#new local branch
 	["mv"]=""	#move files
+	["st"]=""	#view status
 	["help"]=""
 )
 
